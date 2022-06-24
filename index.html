@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Tax Calculator</title>
+        <link rel='stylesheet' href='styles.css'/>
+        <script src="Calculations.js"></script>
+    </head>
+    <body>
+        <header class="header">
+            Tax Calculator
+        </header>
+        <div>
+            <div>
+                <label>Tax Code:</label>
+                <select name="tax code" id="tax code">
+                    <option value="1257L">1257L (Basic Rate)</option>
+                    <option value="1170L">1170L</option>
+                </select>
+            </div>  
+            <br>
+            <div>
+                <label>Student Loan Repayment Plan:</label>
+                <select name="RepaymentPlan" id="RepaymentPlan">
+                    <option value="PlanOne">Repayment Plan 1 (Graduated before September 2012)</option>
+                    <option value="PlanTwo" selected="selected">Repayment Plan 2 (Graduated after September 2012)</option>
+                </select>
+            </div>
+        </div>
+        <br><br>
+        <div>
+            <div>
+                <form>
+                    <label for="gross-monthly">Gross Monthly</label>
+                    <input type="number" id="gross-monthly" name="grossMonthly"><br>
+                </form>
+            </div>
+            <br>
+            <button class="button" onclick="taxable();NIApplied();SLApplied();TakeHome()">Calculate Taxable</button>
+            <div>
+                <form>
+                    <p>
+                        <label for="taxable">Taxable: </label>
+                        <span id="taxable"></span>
+                    </p>
+                    <p>
+                        <label for="NI applied on">NI applied on: </label>
+                        <span id="NI applied on"></span>
+                    </p>
+                    <p>
+                        <label for="SL applied on">Student Loan applied on: </label>
+                        <span id="SL applied on"></span>
+                    </p>
+                </form>
+            </div>
+            <div>
+                <form>
+                    <p>
+                        <label for="tax">Tax: </label>
+                        <span id="tax"></span>
+                    </p>
+                    <p>
+                        <label for="NI">National Insurance: </label>
+                        <span id="NI"></span>
+                    </p>
+                    <p>
+                        <label for="SL">Student Loan: </label>
+                        <span id="SL"></span>
+                    </p>
+                    <p>
+                        <label for="TakeHome">Take Home Pay: </label>
+                        <span id="TakeHome"></span>
+                    </p>
+                </form>
+            </div>
+        </div>
+    </body>
+</html>
