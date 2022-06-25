@@ -1,76 +1,145 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Tax Calculator</title>
+        <title>Pay Calculator</title>
         <link rel='stylesheet' href='styles.css'/>
         <script src="Calculations.js"></script>
     </head>
     <body>
-        <header class="header">
-            Tax Calculator
-        </header>
-        <div>
-            <div>
-                <label>Tax Code:</label>
-                <select name="tax code" id="tax code">
-                    <option value="1257L">1257L (Basic Rate)</option>
-                    <option value="1170L">1170L</option>
-                </select>
-            </div>  
-            <br>
-            <div>
-                <label>Student Loan Repayment Plan:</label>
-                <select name="RepaymentPlan" id="RepaymentPlan">
-                    <option value="PlanOne">Repayment Plan 1 (Graduated before September 2012)</option>
-                    <option value="PlanTwo" selected="selected">Repayment Plan 2 (Graduated after September 2012)</option>
-                </select>
-            </div>
-        </div>
-        <br><br>
-        <div>
-            <div>
-                <form>
-                    <label for="gross-monthly">Gross Monthly</label>
-                    <input type="number" id="gross-monthly" name="grossMonthly"><br>
-                </form>
-            </div>
-            <br>
-            <button class="button" onclick="taxable();NIApplied();SLApplied();TakeHome()">Calculate Taxable</button>
-            <div>
-                <form>
-                    <p>
-                        <label for="taxable">Taxable: </label>
-                        <span id="taxable"></span>
-                    </p>
-                    <p>
-                        <label for="NI applied on">NI applied on: </label>
-                        <span id="NI applied on"></span>
-                    </p>
-                    <p>
-                        <label for="SL applied on">Student Loan applied on: </label>
-                        <span id="SL applied on"></span>
-                    </p>
-                </form>
-            </div>
-            <div>
-                <form>
-                    <p>
-                        <label for="tax">Tax: </label>
-                        <span id="tax"></span>
-                    </p>
-                    <p>
-                        <label for="NI">National Insurance: </label>
-                        <span id="NI"></span>
-                    </p>
-                    <p>
-                        <label for="SL">Student Loan: </label>
-                        <span id="SL"></span>
-                    </p>
-                    <p>
-                        <label for="TakeHome">Take Home Pay: </label>
-                        <span id="TakeHome"></span>
-                    </p>
-                </form>
+        <div id="calculator">
+            <div class="container">
+                <h1>Take Home Pay Calculator</h1>
+                <table class="inputsTable">
+                    <tr class="Row1Inputs">
+                        <td>
+                            Tax Code:
+                        </td>
+                        <td id="tax-code-cell">
+                            <select name="tax-code" id="tax-code">
+                                <option value="1257L">1257L (Basic Rate)</option>
+                                <option value="1170L">1170L</option>
+                            </select>
+                        </td>
+                        <td>
+                            Student Loan Repayment Plan:
+                        </td>
+                        <td>
+                            <select name="RepaymentPlan" id="RepaymentPlan">
+                                <option value="PlanOne">Repayment Plan 1 (Graduated before September 2012)</option>
+                                <option value="PlanTwo" selected="selected">Repayment Plan 2 (Graduated after September 2012)</option>
+                            </select>
+                        </td>
+                        <td>
+                            Period:
+                        </td>
+                        <td>
+                            <select onclick="unhideInputSingle();unhideInputOther();" name="Period" id="period">
+                                <option value="Annually" selected="selected">Gross Annual Salary</option>
+                                <option value="Monthly">Gross Monthly Salary</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Pension Contribution (%):
+                        </td>
+                        <td></td>
+                        <td>
+                            Gross Annually:
+                        </td>
+                        <td>
+                            Gross Monthly:
+                        </td>
+                    </tr>
+                    <tr class="numberInputs">
+                        <td>
+                            <input type="number" value="0.00" id="pension-contribution" class="pension-contribution" name="pension-contribution">
+                        </td>
+                        <td></td>
+                        <td>
+                            <input type="number" value="0.00" id="gross-annually" class="gross-annually" name="gross-annually">
+                        </td>
+                        <td>
+                            <input type="number" value="0.00" id="gross-monthly" class="gross-monthly" name="gross-monthly" disabled>
+                        </td>
+                    </tr>
+                </table>
+                        <button class="button" type="button" onclick="grossMonthly();taxable();NIApplied();SLApplied();TakeHome();PensionContribution();">Calculate Pay</button>
+                        <button class="button" type="button" id="calculateOtherButton" onclick="grossMonthly()">Calculate Gross Monthly</button>
+                <table class="resultsTable">
+                    <tr>
+                        <th id="blank"></th>
+                        <th class="heading">Yearly</th>
+                        <th class="heading">Monthly</th>
+                        <th class="heading">Weekly</th>
+                    </tr>
+                    <tr>
+                        <td class="column1">Amount taxable at 20% </td>
+                        <td class="results" id="tax20Yearly">£0.00</td>
+                        <td class="results" id="tax20">£0.00</td>
+                        <td class="results" id="tax20Weekly">£0.00</td>
+                    </tr>
+                    <tr>
+                        <td class="column1">Amount taxable at 40% </td>
+                        <td class="results" id="tax40Yearly">£0.00</td>
+                        <td class="results" id="tax40">£0.00</td>
+                        <td class="results" id="tax40Weekly">£0.00</td>
+                    </tr>
+                    <tr>
+                        <td class="column1">NI applied on </td>
+                        <td class="results" id="NI-applied-on-Yearly">£0.00</td>
+                        <td class="results" id="NI-applied-on">£0.00</td>
+                        <td class="results" id="NI-applied-on-Weekly">£0.00</td>
+                    </tr>
+                    <tr>
+                        <td class="column1">Student Loan applied on </td>
+                        <td class="results" id="SL-applied-on-Yearly">£0.00</td>
+                        <td class="results" id="SL-applied-on">£0.00</td>
+                        <td class="results" id="SL-applied-on-Weekly">£0.00</td>
+                    </tr>
+                    <tr>
+                        <td class="column1">Tax at 20% </td>
+                        <td class="results" id="taxed20Yearly">£0.00</td>
+                        <td class="results" id="taxed20">£0.00</td>
+                        <td class="results" id="taxed20Weekly">£0.00</td>
+                    </tr>
+                    <tr>
+                        <td class="column1">Tax at 40% </td>
+                        <td class="results" id="taxed40Yearly">£0.00</td>
+                        <td class="results" id="taxed40">£0.00</td>
+                        <td class="results" id="taxed40Weekly">£0.00</td>
+                    </tr>
+                    <tr>
+                        <td class="column1">Total Tax </td>
+                        <td class="results" id="taxYearly">£0.00</td>
+                        <td class="results" id="tax">£0.00</td>
+                        <td class="results" id="taxWeekly">£0.00</td>
+                    </tr>
+                    <tr>
+                        <td class="column1">National Insurance </td>
+                        <td class="results" id="NIYearly">£0.00</td>
+                        <td class="results" id="NI">£0.00</td>
+                        <td class="results" id="NIWeekly">£0.00</td>
+                    </tr>
+                    <tr>
+                        <td class="column1">Student Loan </td>
+                        <td class="results" id="SLYearly">£0.00</td>
+                        <td class="results" id="SL">£0.00</td>
+                        <td class="results" id="SLWeekly">£0.00</td>
+                    </tr>
+                    <tr>
+                        <td class="column1">Pension Contribution </td>
+                        <td class="results" id="pensionYearly">£0.00</td>
+                        <td class="results" id="pension">£0.00</td>
+                        <td class="results" id="pensionWeekly">£0.00</td>
+                    </tr>
+                    <tr>
+                        <td class="column1">Take Home Pay </td>
+                        <td class="results" id="TakeHomeYearly">£0.00</td>
+                        <td class="results" id="TakeHome">£0.00</td>
+                        <td class="results" id="TakeHomeWeekly">£0.00</td>
+                    </tr>
+                </table>
             </div>
         </div>
     </body>
