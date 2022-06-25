@@ -6,7 +6,7 @@ h1 {
 }
 
 .container {
-    background-color: rgb(191, 177, 202);
+    background-color: rgba(143, 196, 182, 0.753);
     padding: 24px;
     border-radius: 8px;
     box-shadow: 2px 2px 96px #111;
@@ -41,7 +41,7 @@ th, td.results, td.column1 {
 }
 
 .results:hover {
-    background-color: rgba(163, 125, 192, 0.4);
+    background-color: rgb(143, 196, 182)
 }
 
 .button {
@@ -80,4 +80,16 @@ input[type="number"] {
 
 select {
     cursor: pointer;
+}
+
+#TakeHomeYearly, #TakeHome, #TakeHomeWeekly {
+    font-weight: bold;
+}
+
+#period {
+    width: 190px;
+}
+
+#pension-contribution {
+    width:210px;
 }

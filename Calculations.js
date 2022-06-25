@@ -65,36 +65,71 @@ function taxable(){
         taxableAmountLower = 0;
         taxableAmountHigher = 0;
     }
-    document.getElementById("tax20").innerHTML = "£" + taxableAmountLower.toFixed(2);
-    document.getElementById("tax40").innerHTML = "£" + taxableAmountHigher.toFixed(2);
     taxLower = 0.2 * taxableAmountLower;
     taxHigher = 0.4 * taxableAmountHigher;
-    document.getElementById("taxed20").innerHTML = "£" + taxLower.toFixed(2);
-    document.getElementById("taxed40").innerHTML = "£" + taxHigher.toFixed(2);
     let taxTotal = taxLower + taxHigher;
-    document.getElementById("tax").innerHTML = "£" + taxTotal.toFixed(2);
+    for(var i = 0; i < 3; i++) {
+        if (i==0){
+            let taxableYearlyLower = taxableAmountLower * 12;
+            let taxableYearlyHigher = taxableAmountHigher * 12;
+            let taxedYearlyLower = taxLower * 12;
+            let taxedYearlyHigher = taxHigher * 12;
+            let taxTotalYearly = taxTotal * 12;
+            document.getElementsByClassName("taxable20")[i].innerHTML = "£" + taxableYearlyLower.toFixed(2);
+            document.getElementsByClassName("taxable40")[i].innerHTML = "£" + taxableYearlyHigher.toFixed(2);
+            document.getElementsByClassName("taxed20")[i].innerHTML = "£" + taxedYearlyLower.toFixed(2);
+            document.getElementsByClassName("taxed40")[i].innerHTML = "£" + taxedYearlyHigher.toFixed(2);
+            document.getElementsByClassName("taxTotals")[i].innerHTML = "£" + taxTotalYearly.toFixed(2);
+        }
+        else if (i==1){
+            document.getElementsByClassName("taxable20")[i].innerHTML = "£" + taxableAmountLower.toFixed(2);
+            document.getElementsByClassName("taxable40")[i].innerHTML = "£" + taxableAmountHigher.toFixed(2);
+            document.getElementsByClassName("taxed20")[i].innerHTML = "£" + taxLower.toFixed(2);
+            document.getElementsByClassName("taxed40")[i].innerHTML = "£" + taxHigher.toFixed(2);
+            document.getElementsByClassName("taxTotals")[i].innerHTML = "£" + taxTotal.toFixed(2);
+        } else if (i==2){
+            let taxableWeeklyLower = taxableAmountLower * (12/52);
+            let taxableWeeklyHigher = taxableAmountHigher * (12/52);
+            let taxedWeeklyLower = taxLower * (12/52);
+            let taxedWeeklyHigher = taxHigher * (12/52);
+            let taxTotalWeekly = taxTotal * (12/52);
+            document.getElementsByClassName("taxable20")[i].innerHTML = "£" + taxableWeeklyLower.toFixed(2);
+            document.getElementsByClassName("taxable40")[i].innerHTML = "£" + taxableWeeklyHigher.toFixed(2);
+            document.getElementsByClassName("taxed20")[i].innerHTML = "£" + taxedWeeklyLower.toFixed(2);
+            document.getElementsByClassName("taxed40")[i].innerHTML = "£" + taxedWeeklyHigher.toFixed(2);
+            document.getElementsByClassName("taxTotals")[i].innerHTML = "£" + taxTotalWeekly.toFixed(2);
+        }
+    }
     return taxTotal;
 }
 
 function NIApplied(){
-    var NIFreeAmountLower, NIAmount, NI;
+    var NIFreeAmount, NIAmount, NIAmountYearly, NIAmountWeekly, NI, NIYearly, NIWeekly;
     let gross = document.getElementById("gross-monthly").value - PensionContribution();
     if(gross >= 823.01){
-        NIFreeAmountLower = 823.01
-        NIAmount = gross - NIFreeAmountLower;
+        NIFreeAmount = 823.01
+        NIAmount = gross - NIFreeAmount;
     } 
     else {
-        NIFreeAmountLower = 0;
+        NIFreeAmount = 0;
         NIAmount = 0;
     }
+    NIAmountYearly = NIAmount * 12;
+    NIAmountWeekly = NIAmount * (12/52);
     document.getElementById("NI-applied-on").innerHTML = "£" + NIAmount.toFixed(2);
+    document.getElementById("NI-applied-on-Yearly").innerHTML = "£" + NIAmountYearly.toFixed(2);
+    document.getElementById("NI-applied-on-Weekly").innerHTML = "£" + NIAmountWeekly.toFixed(2);
     NI = 0.1325 * NIAmount;
+    NIYearly = NI * 12;
+    NIWeekly = NI * (12/52);
     document.getElementById("NI").innerHTML = "£" + NI.toFixed(2);
+    document.getElementById("NIYearly").innerHTML = "£" + NIYearly.toFixed(2);
+    document.getElementById("NIWeekly").innerHTML = "£" + NIWeekly.toFixed(2);
     return NI;
 }
 
 function SLApplied(){
-    var SLFreeAmount, SLAmount, SL;
+    var SLFreeAmount, SLAmount, SLAmountYearly, SLAmountWeekly, SL, SLYearly, SLWeekly;
     if(document.getElementById("RepaymentPlan").value == "PlanOne"){
         SLFreeAmount = 1682;
     } 
@@ -108,21 +143,37 @@ function SLApplied(){
         SLFreeAmount = 0;
         SLAmount = 0;
     }
+    SLAmountYearly = SLAmount * 12;
+    SLAmountWeekly = SLAmount * (12/52);
     document.getElementById("SL-applied-on").innerHTML = "£" + SLAmount.toFixed(2);
+    document.getElementById("SL-applied-on-Yearly").innerHTML = "£" + SLAmountYearly.toFixed(2);
+    document.getElementById("SL-applied-on-Weekly").innerHTML = "£" + SLAmountWeekly.toFixed(2);
     SL = 0.09 * SLAmount;
+    SLYearly = SL * 12;
+    SLWeekly = SL * (12/52);
     document.getElementById("SL").innerHTML = "£" + SL.toFixed(2);
+    document.getElementById("SLYearly").innerHTML = "£" + SLYearly.toFixed(2);
+    document.getElementById("SLWeekly").innerHTML = "£" + SLWeekly.toFixed(2);
     return SL;
 }
 
 function PensionContribution(){
     let PensionPercentage = document.getElementById("pension-contribution").value / 100;
     let grossMonthly = document.getElementById("gross-monthly").value;
-    const pension = PensionPercentage * grossMonthly;
+    let pension = PensionPercentage * grossMonthly;
+    let pensionYearly = pension * 12;
+    let pensionWeekly = pension * (12/52);
     document.getElementById("pension").innerHTML = "£" + pension.toFixed(2);
+    document.getElementById("pensionYearly").innerHTML = "£" + pensionYearly.toFixed(2);
+    document.getElementById("pensionWeekly").innerHTML = "£" + pensionWeekly.toFixed(2);
     return pension;
 }
 
 function TakeHome(){
     let TakeHomeAmount = document.getElementById("gross-monthly").value - taxable() - NIApplied() - SLApplied() - PensionContribution();
+    let TakeHomeAmountYearly = TakeHomeAmount * 12;
+    let TakeHomeAmountWeekly = TakeHomeAmount * (12/52);
     document.getElementById("TakeHome").innerHTML = "£" + TakeHomeAmount.toFixed(2);
+    document.getElementById("TakeHomeYearly").innerHTML = "£" + TakeHomeAmountYearly.toFixed(2);
+    document.getElementById("TakeHomeWeekly").innerHTML = "£" + TakeHomeAmountWeekly.toFixed(2);
 }
