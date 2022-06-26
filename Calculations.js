@@ -177,3 +177,20 @@ function TakeHome(){
     document.getElementById("TakeHomeYearly").innerHTML = "£" + TakeHomeAmountYearly.toFixed(2);
     document.getElementById("TakeHomeWeekly").innerHTML = "£" + TakeHomeAmountWeekly.toFixed(2);
 }
+
+function darkMode() {
+    for(var i = 0; i < document.getElementsByClassName("container").length; i++){
+    let element = document.getElementsByClassName("container")[i];
+    element.classList.toggle("dark-mode");
+    }
+}
+
+function darkModeTitle() {{
+    const box = document.getElementById('header');
+    if(box.style.color == 'white'){
+        box.style.color = 'black';
+    } else if (box.style.color = 'black') {
+        box.style.color = 'white';
+     }
+    };
+}

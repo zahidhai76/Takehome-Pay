@@ -1,61 +1,78 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Pay Calculator</title>
+        <title>Salary Calculator</title>
         <link rel='stylesheet' href='styles.css'/>
+        <link rel="icon" type="image/x-icon" href="icons8-calculator-50.png">
         <script src="Calculations.js"></script>
     </head>
     <body>
         <div id="calculator">
             <div class="container">
-                <h1>Take Home Pay Calculator</h1>
+                <table class="Title">
+                    <tr>
+                        <td class="colourCell">
+                            <button class="colourChange" onclick="darkMode();darkModeTitle();" type="button">Dark Mode</button>
+                        </td>
+                        <td id="blankCell"></td>
+                        <td class="headerCell">
+                            <span id="header">Take Home Pay Calculator</span>
+                        </td>
+                        <td class="linksCell">
+                            <a class="links" href="https://www.gov.uk/guidance/rates-and-thresholds-for-employers-2022-to-2023" target="_blank">Tax Rate Information</a>
+                        </td>
+                    </tr>
+                </table>
+                <br>
                 <table class="inputsTable">
                     <tr class="Row1Inputs">
-                        <td>
+                        <td id="taxCodeCell">
                             Tax Code:
                             <select name="tax-code" id="tax-code">
                                 <option value="1257L">1257L (Basic Rate)</option>
                                 <option value="1170L">1170L</option>
                             </select>
                         </td>
-                        <td>
+                        <td id="SLCell" colspan="3">
                             Student Loan Repayment Plan:
                             <select name="RepaymentPlan" id="RepaymentPlan">
                                 <option value="PlanOne">Repayment Plan 1 (Graduated before September 2012)</option>
                                 <option value="PlanTwo" selected="selected">Repayment Plan 2 (Graduated after September 2012)</option>
                             </select>
                         </td>
-                        <td colspan="2">
-                            Period:
+                        <td class="gross">
+                            Gross Annually:
+                        </td>
+                        <td class="gross">
+                            <input type="number" value="0.00" id="gross-annually" class="gross-annually" name="gross-annually" disabled>
+                        </td>
+                    </tr>
+                    <tr class="numberInputs">
+                    <tr>
+                        <td class="PensionContributionInputCells">
+                            Pension Contribution (%):
+                        </td>
+                        <td class="periodCell" colspan="3">
+                            Enter Period:
+                        </td>
+                        <td class="gross">
+                            Gross Monthly:
+                        </td>
+                        <td class="gross">
+                            <input type="number" value="0.00" id="gross-monthly" class="gross-monthly" name="gross-monthly">
+                        </td>
+                    </tr>
+                        <td class="PensionContributionInputCells">
+                            <input type="number" value="0.00" id="pension-contribution" class="pension-contribution" name="pension-contribution">
+                        </td>
+                        <td class="periodCell" colspan="4">
                             <select onclick="unhideInputSingle();unhideInputOther();" name="Period" id="period">
                                 <option value="Annually">Gross Annual Salary</option>
                                 <option value="Monthly" selected="selected">Gross Monthly Salary</option>
                             </select>
                         </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            Pension Contribution (%):
-                        </td>
+                        <td class="gross"> 
                         <td></td>
-                        <td>
-                            Gross Annually:
-                        </td>
-                        <td>
-                            Gross Monthly:
-                        </td>
-                    </tr>
-                    <tr class="numberInputs">
-                        <td>
-                            <input type="number" value="0.00" id="pension-contribution" class="pension-contribution" name="pension-contribution">
-                        </td>
-                        <td></td>
-                        <td>
-                            <input type="number" value="0.00" id="gross-annually" class="gross-annually" name="gross-annually" disabled>
-                        </td>
-                        <td>
-                            <input type="number" value="0.00" id="gross-monthly" class="gross-monthly" name="gross-monthly">
-                        </td>
                     </tr>
                 </table>
                         <button class="button" type="button" onclick="grossMonthly();taxable();NIApplied();SLApplied();TakeHome();PensionContribution();">Calculate Pay</button>
